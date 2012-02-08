@@ -4,6 +4,8 @@
 @col-margin: 10px;
 @col-max: 12;
 
+@page-min-width: (@col-width + @col-margin) * @col-max;
+
 @img-height: 768px;
 
 body {
@@ -33,7 +35,7 @@ body {
 
 .container {
 	margin: 0 auto;
-	width: (@col-width + @col-margin) * @col-max;
+	width: @page-min-width;
 }
 
 .span4 {
@@ -46,6 +48,7 @@ body {
 }
 
 #content-wrap {
+	min-width: @page-min-width;
 	height: @img-height;
 	background: url(../images/bg.jpg) no-repeat center top;
 }
