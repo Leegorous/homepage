@@ -7,29 +7,29 @@
 @img-height: 768px;
 
 body {
-	font: 13px/1.5 Helvetica Neue,Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif;
-	.top-linear(#666, #999);
+	font: 13px/1.5 'Helvetica Neue',Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif;
+	.v-linear(#666, #999);
 }
 
 .nav-bar-bg {
 	/* background-color: #333; */
-	.top-linear(#333333, #222222);
+	.v-linear(#333333, #222222);
 }
 
-header h1 {
+.header h1 {
 	font-size: 20px;
 	padding: 10px 0;
 	text-align: center;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
 }
 
-header h1 a {
+.header h1 a {
 	text-decoration: none;
 	color: #000;
 }
 
 .footer-bg {
-	.top-linear(#111111, #222222);
+	.v-linear(#111111, #222222);
 }
 
 .container {
@@ -56,7 +56,8 @@ header h1 a {
 }
 
 .mask {
-	background-color: rgba(0, 0, 0, 0.2);	
+	background-color: rgba(0, 0, 0, 0.2);
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000, endColorstr=#33000000)";
 }
 
 .menu {
@@ -70,6 +71,8 @@ header h1 a {
 	padding: 15px 0 15px 30px;
 	color: #CCC;
 	text-decoration: none;
+	text-rendering: optimizelegibility;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .menu li a:hover {
