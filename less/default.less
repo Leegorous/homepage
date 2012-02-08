@@ -1,0 +1,89 @@
+@import "base";
+
+@col-width: 70px;
+@col-margin: 10px;
+@col-max: 12;
+
+@img-height: 768px;
+
+body {
+	font: 13px/1.5 Helvetica Neue,Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif;
+	.top-linear(#666, #999);
+}
+
+.nav-bar-bg {
+	/* background-color: #333; */
+	.top-linear(#333333, #222222);
+}
+
+header h1 {
+	font-size: 20px;
+	padding: 10px 0;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
+}
+
+header h1 a {
+	text-decoration: none;
+	color: #000;
+}
+
+.footer-bg {
+	.top-linear(#111111, #222222);
+}
+
+.container {
+	margin: 0 auto;
+	width: (@col-width + @col-margin) * @col-max;
+}
+
+.span4 {
+	width: (@col-width + @col-margin) * 4 - @col-margin;
+	margin-left: @col-margin;
+}
+
+.offset8 {
+	margin-left: (@col-width + @col-margin) * 8 + @col-margin;
+}
+
+#content-wrap {
+	height: @img-height;
+	background: url(../images/bg.jpg) no-repeat center top;
+}
+
+#content {
+	height: @img-height;
+}
+
+.mask {
+	background-color: rgba(0, 0, 0, 0.2);	
+}
+
+.menu {
+	padding: 40px 0 0 0;
+	list-style: none;
+}
+
+.menu li a {
+	display: block;
+	font-size: 16px;
+	padding: 15px 0 15px 30px;
+	color: #CCC;
+	text-decoration: none;
+}
+
+.menu li a:hover {
+	color: #FFF;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.contacts {
+	padding: 30px 0 140px 0;
+	color: #333;
+}
+
+.contacts p {
+	font-size: 15px;
+	text-align: center;
+	margin: 10px 0px 10px 0px;
+}
