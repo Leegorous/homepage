@@ -8,4 +8,8 @@ node:
 	mkdir -p css
 	node compile-css.js	
 
-.PHONY: homepage node
+watch:
+	echo "Watching less files..."
+	watchr -e "watch('less/.*\.less') { system 'make' }"
+
+.PHONY: homepage node watch
