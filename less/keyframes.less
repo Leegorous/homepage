@@ -1,0 +1,32 @@
+.h-move(@from, @to) {
+    from { margin-left: @from; }
+	to { margin-left: @to; }
+}
+
+.animation(@name, @duration, @count, @way) {
+    -webkit-animation: @arguments;
+    -moz-animation: @arguments;
+    -o-animation: @arguments;
+}
+
+/*.h-move("open", (@col-width + @col-margin) * 8 + @col-margin, (@col-width + @col-margin) * 4 + @col-margin); */
+
+@keyframes open {
+    .h-move((@col-width + @col-margin) * 8 + @col-margin, (@col-width + @col-margin) * 4 + @col-margin);
+}
+@-webkit-keyframes open {
+    .h-move((@col-width + @col-margin) * 8 + @col-margin, (@col-width + @col-margin) * 4 + @col-margin);
+}
+@-moz-keyframes open {
+    .h-move((@col-width + @col-margin) * 8 + @col-margin, (@col-width + @col-margin) * 4 + @col-margin);
+}
+
+@keyframes close {
+    .h-move((@col-width + @col-margin) * 4 + @col-margin, (@col-width + @col-margin) * 8 + @col-margin);
+}
+@-webkit-keyframes close {
+    .h-move((@col-width + @col-margin) * 4 + @col-margin, (@col-width + @col-margin) * 8 + @col-margin);
+}
+@-moz-keyframes close {
+    .h-move((@col-width + @col-margin) * 4 + @col-margin, (@col-width + @col-margin) * 8 + @col-margin);
+}

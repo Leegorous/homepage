@@ -10,7 +10,7 @@
     
     <body>
         <div class="header">
-            <div class="container nav-bar-bg">
+            <div class="row nav-bar-bg">
                 <div class="offset8 span4 mask">
                     <h1><a href="/">Leegorous' Homepage</a></h1>
                 </div>
@@ -18,29 +18,38 @@
             <!-- <h1>Ga~~ Ga~~ Woooo~~ Call it when you needs me~ </h1> -->
         </div>
         <div id="content-wrap">
-            <div class="container">
-                <div id="content" class="offset8 span4 mask">
-                    <ul class="menu">
-                        <li><a href="https://plus.google.com/102519126108698565521/posts" title="Google+ Profile">Google+ Profile</a></li>
-                        <li><a href="http://leegorous.net/blog/" title="欢 迎 浏 览 我 的 博客">博客 Blog</a></li>
-						<li><a href="https://github.com/Leegorous" title="Fork me on Github">Github Profile</a></li>
-                        <li><a href="https://twitter.com/#!/leegorous" title="Follow me on Twitter">@Twitter</a></li>
-                        <li><a href="http://weibo.com/leegorous" title="欢 迎 围 观 我 的 微博">@新浪微博</a></li>
-                        <li><a href="http://www.douban.com/people/leegorous/" title="我 读 过 的 书, 看 过 的 电影 和 喜 欢 的 音乐">豆瓣</a></li>
-						<li><a href="http://www.flickr.com/people/leegorous/" title="我 的 flickr 图集">Flickr</a></li>
-                    </ul>
+            <div class="row slice-box-wrap">
+                <div class="slice-box">
+                    <div id="content" class="span4 mask menu offset8">
+                        <ul>
+                            <li><a href="https://plus.google.com/102519126108698565521/posts" title="Google+ Profile">Google+ Profile</a></li>
+                            <li><a href="http://leegorous.net/blog/" title="欢 迎 浏 览 我 的 博客">博客 Blog</a></li>
+    						<li><a href="https://github.com/Leegorous" title="Fork me on Github">Github Profile</a></li>
+                            <li><a href="https://twitter.com/#!/leegorous" title="Follow me on Twitter">@Twitter</a></li>
+                            <li><a href="http://weibo.com/leegorous" title="欢 迎 围 观 我 的 微博">@新浪微博</a></li>
+                            <li><a href="http://www.douban.com/people/leegorous/" title="我 读 过 的 书, 看 过 的 电影 和 喜 欢 的 音乐">豆瓣</a></li>
+    						<li><a href="http://www.flickr.com/people/leegorous/" title="我 的 flickr 图集">Flickr</a></li>
+                            <li><a class="tools" href="javascript:;">工具集</a></li>
+                        </ul>
+                    </div>
+                    <div class="span4 mask menu">
+                        <ul>
+                            <li><a href="http://leegorous.net/tools/bg-alpha.html">透明背景色 CSS 生成器</a></li>
+                            <li><a href="http://leegorous.net/tools/gen-pwd.html">密码生成器</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="footer">
-            <div class="container footer-bg">
+            <div class="row footer-bg">
                 <div class="offset8 span4 contacts mask">
                     <p>联系方式: <img src="images/mail.png" /></p>
                     <p>leegorous.net 2007 - 2012</p>
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
+        <script>
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-424296-1']);
           _gaq.push(['_trackPageview']);
@@ -50,6 +59,18 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
           })();
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script>
+        $('.tools').click(function() {
+            if ($(this).hasClass('opened')) {
+                $(this).removeClass('opened');
+                $('#content').removeClass('offset4 slice-8-4').addClass('offset8 slice-4-8');
+            } else {
+                $(this).addClass('opened');
+                $('#content').removeClass('offset8 slice-4-8').addClass('offset4 slice-8-4');
+            }
+        });
         </script>
     </body>
 </html>
