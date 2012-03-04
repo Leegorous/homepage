@@ -96,6 +96,11 @@ body {
 	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000, endColorstr=#33000000)";
 }
 
+.icon-bg(@url, @position) {
+	background-image: url(@url);
+	background-repeat: no-repeat;
+	background-position: @position;
+}
 .menu {
 	height: @img-height;
 
@@ -112,18 +117,28 @@ body {
 				text-decoration: none;
 				text-rendering: optimizelegibility;
 				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				position: relative;
 			}
 
 			.opened, a:hover {
 				color: #FFF;
 				background-color: rgba(0, 0, 0, 0.6);
 			}
+
+			.icon {
+				display: none;
+				position: absolute;
+				top: 14px;
+				left: 13px;
+			}
+
+			a:hover .icon {
+				display: block;
+			}
 		}
 
 		.look {
-			background-image: url(../images/look.jpg);
-			background-repeat: no-repeat;
-			background-position: 12px center;
+			.icon-bg("../images/look.jpg", ~"12px center");
 		}
 	}
 
