@@ -1,8 +1,10 @@
-HOMEPAGE_LESS = ./less/default.less
+LESS_DIR = ./less
+CSS_DIR = ./css
 
 homepage:
 	mkdir -p css
-	lessc ${HOMEPAGE_LESS} > css/default.css
+	lessc ${LESS_DIR}/default.less > ${CSS_DIR}/default.css
+	lessc ${LESS_DIR}/default-ie8.less > ${CSS_DIR}/default-ie8.css
 
 node:
 	mkdir -p css
