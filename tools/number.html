@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <title>Leegorous' Homepage</title>
+        <link rel="stylesheet" href="/css/html5reset-1.6.1.css" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <style>
+        h1 {
+        	margin: 15px 20px;
+        	font-size: 200%;
+        }
+        .table > div {
+        	padding: 3px 20px;
+        	border-bottom: 1px solid #DDD;
+        }
+        .label {
+        	display: inline-block;
+        	width: 250px;
+        	line-height: 36px;
+        	font-weight: bold;
+        	border-right: 1px solid #DDD;
+        	margin-right: 20px;
+        }
+        .table div:nth-child(odd) {
+			background-color: #F9F9F9;
+		}
+        </style>
+    </head>
+    
+    <body>
+    	<h1>Number 的边界</h1>
+        <script>
+        (function() {
+        	var html = ['<div class="table">'];
+        	function write(str) {
+        		document.write(str);
+        	}
+
+        	function push(key, value) {
+        		html.push('<div><span class="label">' + key + '</span>' + value + '</div>');
+        	}
+
+        	push('Number.NIN_VALUE', Number.MIN_VALUE);
+        	push('Number.MAX_VALUE', Number.MAX_VALUE);
+
+        	var arr = [];
+        	for(var i = 0; i< 21; i++) {
+        		arr.push('9');
+        		push((i+1) + ' : ' + arr.join(''), Number(arr.join('')));
+        	}
+
+        	var arr = ['9.'];
+        	for(var i = 0; i< 21; i++) {
+        		var str = arr.join('') + '9';
+        		push((i+1) + ' : ' + str, Number(str));
+        		arr.push('9');
+        	}
+
+        	html.push('</div>');
+        	write(html.join(''));
+        })();
+        </script>
+        <script>
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-424296-1']);
+          _gaq.push(['_trackPageview']);
+
+          if (location.hostname != 'localhost') (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </body>
+</html>

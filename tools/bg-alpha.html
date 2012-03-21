@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <title>Alpha background: CSS code generator</title>
+    </head>
+    
+    <body style="background-color:#eeeeee;">
+        <header>
+            <h1>Generate CSS code for alpha background color </h1>
+        </header>
+        <p>
+            Color value looks like "F4DBBB", the hex value.<br/>
+            Alpha value is between 0 ~ 1.0, example: 0.6.<br/>
+            <a href="http://leegorous.net/blog/2010/07/29/generate-css-code-4-alpha-bg-color/" target="_blank">Check this out for the tools description.</a>
+        </p>
+        <p>
+            <label>color: <input id="color" value="F4DBBB"/></label>
+            <label>alpha: <input id="alpha" value="0.6"/></label>
+            <input id="ok" type="button" value="OK"/><br/>
+        </p>
+        <textarea id="result" cols="100"></textarea>
+        <p>If you have any questions or suggestions, please comment at <a href="http://leegorous.net/blog/2010/07/29/generate-css-code-4-alpha-bg-color/" target="_blank">this post.</a></p>
+    </body>
+<script>
+function $(id) {
+    return document.getElementById(id);
+}
+$('ok').onclick = function() {
+    var color = $("color").value;
+    var alpha = $("alpha").value;
+    var rgb = [];
+    for (var i=0; i<color.length; i+=2) {
+        rgb.push(parseInt("0x" + color[i] + color[i+1]));
+    }
+    var alphaHex = Math.floor(parseFloat(alpha) * 255).toString(16);
+    $("result").value = "background: rgba(" + rgb.join(",") + ", "+alpha+");\r\n" +
+    "filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#"+ alphaHex +color+", endColorstr=#" + alphaHex +color+");";
+}
+</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try{
+var pageTracker = _gat._getTracker("UA-424296-1");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</html>

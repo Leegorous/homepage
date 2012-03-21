@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <title>Password Generator</title>
+        
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+                font-family: Georgia, "Lucida Grande", Arial, Serif;
+            }
+            header, .ctn {
+                display: block;
+                margin: 0 auto;
+                width: 960px;
+                background: #eee;
+            }
+            .ctn {
+                padding: 0 0 4em 0;
+            }
+            h1 {
+                margin: 0;
+                padding: 1em 0 1em 30px;
+                font-size: 1.8em;
+                color: #00cc00;
+            }
+            #gen-btn {
+                height: 2em;
+                font-size: 1em;
+                font-family: Arial;
+                float: left;
+                margin-left: 30px;
+            }
+            #result {
+                height: 1.6em;
+                line-height: 1.6em;
+                float: left;
+                margin: 3px 8px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <header>
+            <h1>Password Generator</h1>
+        </header>
+        <div class="ctn">
+            <input id="gen-btn" type="button" value="Click me to Generate" />
+            <input id="result" type="text"/>
+        </div>
+    </body>
+<script>
+var btn = document.getElementById('gen-btn'),
+    result = document.getElementById('result');
+btn.onclick = function() {
+    result.value = generate();
+    try {
+        result.focus();
+        result.select();
+    } catch(e) {}
+}
+
+function generate() {
+    var tmpl = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "1234567890", "!@#$%^&*"];
+    var s = tmpl.join(''), pwd;
+    function _gen() {
+        var arr = [];
+        for(var i = 0; i < 8; i++) {
+            arr.push(s.charAt(Math.floor(Math.random() * s.length)));
+        }
+        return arr.join('');
+    }
+    function _check(str) {
+        var res = [];
+        for(var i = tmpl.length - 1; i >= 0; i--) {
+            var t = tmpl[i];
+            res[i] = 0;
+            for(var j = 0; j < t.length; j++) {
+                var c = t.charAt(j);
+                if (str.indexOf(c) >= 0) {
+                    res[i] = 1;
+                    break;
+                }
+            }
+            if (res[i] === 0) return false;
+        }
+        return true;
+    }
+    while (!_check(pwd = _gen())) {};
+    return pwd;
+}
+</script>
+</html>
