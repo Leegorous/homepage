@@ -5,6 +5,7 @@ homepage:
 	mkdir -p css
 	lessc ${LESS_DIR}/default.less > ${CSS_DIR}/default.css
 	lessc ${LESS_DIR}/default-ie8.less > ${CSS_DIR}/default-ie8.css
+	lessc ${LESS_DIR}/mobile.less > ${CSS_DIR}/mobile.css
 
 node:
 	mkdir -p css

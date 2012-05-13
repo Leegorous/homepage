@@ -1,0 +1,126 @@
+@bg-color: #FBFAF7;
+
+body {
+    font-family: "PT Serif", Helvetica;/* Georgia */
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    background-color: @bg-color;
+}
+
+h1 {
+    font-family: Georgia;
+    letter-spacing: 1px;
+    color: #DDF8C6;
+    font-size: 1.75em;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    margin: 0;
+    padding: .6em 0;
+}
+
+.header { 
+    position: relative; 
+    background: #F0731F; 
+    border-bottom: 10px solid #F7B78C; 
+    margin-bottom: 25px;
+    z-index: 10;
+}
+
+.header:after, .header:before { 
+    top: 100%; 
+    border: solid transparent; 
+    content: " "; 
+    height: 0; 
+    width: 0; 
+    position: absolute; 
+    pointer-events: none; 
+}
+
+.header:after { 
+    border-top-color: #F0731F; 
+    border-width: 20px; 
+    left: 50%; 
+    margin-left: -20px; 
+}
+
+.header:before { 
+    border-top-color: #F7B78C; 
+    border-width: 34px; 
+    left: 50%; 
+    margin-left: -34px; 
+}
+
+.links {
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: block;
+
+        a {
+            display: block;
+            background-color: #fff;
+            color: #333;
+            font-size: 1.3em;
+            text-decoration: none;
+            padding: 15px 0 15px 50px;
+            text-rendering: optimizelegibility;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            position: relative;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin-bottom: -1px;
+        }
+
+        a:hover {
+            color: #4F4D4C;
+            background-color: #F6F2EF;
+        }
+
+        .icon {
+            position: absolute;
+            top: 14px;
+            left: 13px;
+        }
+    }
+}
+
+.footer {
+    color: #B88868;
+    position: relative; 
+    background: #FBDAC5; 
+    border-top: 10px solid #F7B78C;
+    margin-top: 15px;
+    padding: 30px 0 10px 0;
+    text-shadow: 0 1px 1px #fff;
+    z-index: 10;
+}
+
+.footer:after, .footer:before { 
+    top: -10px; 
+    border: solid transparent; 
+    content: " "; 
+    height: 0; 
+    width: 0; 
+    position: absolute; 
+    pointer-events: none; 
+}
+
+.footer:after { 
+    border-top-color: @bg-color; 
+    border-width: 20px; 
+    left: 50%; 
+    margin-left: -20px; 
+}
+
+.footer:before { 
+    border-top-color: #F7B78C; 
+    border-width: 34px; 
+    left: 50%; 
+    margin-left: -34px; 
+}
+
+.footer p {
+    text-align: center;
+}
