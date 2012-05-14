@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-RewriteCond  %{HTTP_USER_AGENT}  .*(iPhone|iPad).*
+RewriteCond  %{HTTP_USER_AGENT}  .*(iPhone|iPad|Android).*
 RewriteRule  ^$                 /mobindex.html  [L]
 </IfModule>
