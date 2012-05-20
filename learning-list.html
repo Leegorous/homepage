@@ -30,6 +30,7 @@
                     <ul class="nav">
                         <li><a href="#books-online" title="在线书籍">Books Online</a></li>
                         <li><a href="#blogs" title="专业博客">Blogs</a></li>
+                        <li><a href="#comments" title="评论">Comments</a></li>
                     </ul>
                     <ul class="nav pull-right">
                         <li><a href="http://leegorous.net/"><i class="icon-white icon-home"></i> leegorous.net</a></li>
@@ -107,6 +108,21 @@
                 <ul>
                     <li><a href="http://www.hiwebgl.com/" target="_blank">Hi, WebGL! </a><span class="comment">最好的HTML5 WebGL中文资讯站！</span></li>
                 </ul>
+            </section>
+            <section id="comments">
+                <div class="page-header">
+                    <h2>Comments <small>评论</small></h2>
+                </div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    var disqus_shortname = 'leegorous'; // required: replace example with your forum shortname
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </section>
 
             <footer class="footer">
