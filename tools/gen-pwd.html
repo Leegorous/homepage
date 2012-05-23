@@ -21,6 +21,12 @@
                 font-family: Monaco, Consolas, "DejaVu Sans Mono", "Courier New", Courier, monospace;
             }
 
+            .page-wrap {
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                border-radius: 10px;
+            }
+
             .container {
                 background: #fff;
             }
@@ -72,25 +78,26 @@
     </head>
     
     <body>
-        <header class="container">
-            <div class="headline">
+        <div class="container page-wrap">
+            <header class="headline">
                 <h1>在线密码生成器</h1>
                 <p class="lead">Password Generator</p>
                 <p class="lead pwd-text">密码规则：由 <code>a-z</code>, <code>A-Z</code>, <code>2-9</code>, <code>!@#$%^&amp;*+-=_</code> 组成；但不包含 <code>o, O, I, l</code>；8位随机
                 </p>
                 <p>完全不涉及，不收集任何个人信息，运算过程由 JavaScript 在浏览器内完成，可安全离线使用</p>
+            </header>
+            
+            <div class="form-generator">
+                    <input class="btn btn-success btn-huge" id="gen-btn" type="button" value="产生新密码" /><br/>
+                    <input class="input-huge pwd-text" id="result" type="text"/>            
             </div>
-        </header>
 
-        <div class="container form-generator">
-                <input class="btn btn-success btn-huge" id="gen-btn" type="button" value="产生新密码" /><br/>
-                <input class="input-huge pwd-text" id="result" type="text"/>            
+            <footer class="footer">
+                <p>Build by <a href="http://weibo.com/leegorous">@leegorous</a>. This page licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+                <p><a href="http://leegorous.net/"><i class="icon-home"></i> leegorous.net</a></p>
+            </footer>
         </div>
 
-        <footer class="container footer">
-            <p>Build by <a href="http://weibo.com/leegorous">@leegorous</a>. This page licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
-            <p><a href="http://leegorous.net/"><i class="icon-home"></i> leegorous.net</a></p>
-        </footer>
 
         <script src="http://leegorous.net/track.js"></script>
     </body>
