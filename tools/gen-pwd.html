@@ -122,11 +122,8 @@ $(document).ready(function() {
         $(document.body).css('padding', Math.floor((max - el.height()) / 2) + 'px 0');
     }
     verticalCenter($('.container:first'));
-});
 
-(function() {
-    var result = $('#result'),
-        tmpl = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", "!@#$%^&*+-=_"],
+    var tmpl = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", "!@#$%^&*+-=_"],
         excludedChar = ['l', 'o', 'I', 'O', '0', '1'];
 
     var allChar = (function() {
@@ -161,13 +158,14 @@ $(document).ready(function() {
     }
 
     $('#gen-btn').click(function() {
+        var result = $('#result');
         result.val(generate());
         try {
             result.focus();
             result[0].select();
         } catch(e) {}
     });
-})();
+});
 </script>
     </body>
 </html>
