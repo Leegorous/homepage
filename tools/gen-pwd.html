@@ -14,7 +14,7 @@
         <style>
             body {
                 background: #6ab3f6;
-                padding: 35px 0;
+                padding: 20px 0;
             }
 
             .pwd-text {
@@ -33,45 +33,53 @@
 
             .headline {
                 text-align: center;
-                margin: 64px 0  32px 0;
+                margin: 40px 0  36px 0;
+                color: #aaa;
             }
 
-            .headline code {
-                font-size: 20px;
+            .desc {
+                text-align: center;
+                color: #666;
+            }
+
+            .desc code {
+                font-size: 18px;
+            }
+
+            .rule {
+                font-size: 18px;
             }
 
             .form-generator {
                 text-align: center;
-                padding: 0 0 30px 0;
+                padding: 20px 0 25px 0;
             }
 
             .btn-huge {
-                font-size: 80px;
-                padding: 30px 70px;
+                font-size: 64px;
+                padding: 20px 64px;
                 line-height: normal;
-                -webkit-border-radius: 80px;
-                -moz-border-radius: 80px;
-                border-radius: 80px;
-                outline: none;
+                -webkit-border-radius: 64px;
+                -moz-border-radius: 64px;
+                border-radius: 64px;
             }
 
             .input-huge {
                 width: 560px;
-                font-size: 80px;
+                font-size: 72px;
                 line-height: normal;
                 height: auto;
-                padding: 15px;
-                margin: 30px;
+                padding: 10px;
+                margin: 25px;
                 text-align: center;
-                -webkit-border-radius: 20px;
-                -moz-border-radius: 20px;
-                border-radius: 20px;
-                outline: none;
+                -webkit-border-radius: 16px;
+                -moz-border-radius: 16px;
+                border-radius: 16px;
             }
 
             .footer {
                 text-align: center;
-                padding: 35px 0 36px;
+                padding: 20px 0 30px 0;
                 border-top: 1px solid #E5E5E5;
             }
         </style>
@@ -82,10 +90,13 @@
             <header class="headline">
                 <h1>在线密码生成器</h1>
                 <p class="lead">Password Generator</p>
-                <p class="lead pwd-text">密码规则：由 <code>a-z</code>, <code>A-Z</code>, <code>2-9</code>, <code>!@#$%^&amp;*+-=_</code> 组成；但不包含 <code>o, O, I, l</code>；8位随机
+            </header>
+            <section class="desc">
+                <p class="lead rule pwd-text">
+                    密码规则: 由 <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code>!@#$%^&amp;*+-=_</code> 组成; 不包含 <code>o, O, 0, l, I, 1</code>; 随机
                 </p>
                 <p>完全不涉及，不收集任何个人信息，运算过程由 JavaScript 在浏览器内完成，可安全离线使用</p>
-            </header>
+            </section>
             
             <div class="form-generator">
                     <input class="btn btn-success btn-huge" id="gen-btn" type="button" value="产生新密码" /><br/>
@@ -98,55 +109,44 @@
             </footer>
         </div>
 
-
+        <!--[if lt IE 9]>
+        <script src="/js/ie-patch.js"></script>
+        <![endif]-->
         <script src="http://leegorous.net/track.js"></script>
-    </body>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
-if (!Array.prototype.every) {
-    Array.prototype.every = function(fun /*, thisp */) {
-        "use strict";
-
-        if (this == null) throw new TypeError();
-
-        var t = Object(this);
-        var len = t.length >>> 0;
-        if (typeof fun != "function")
-          throw new TypeError();
-
-        var thisp = arguments[1];
-        for (var i = 0; i < len; i++) {
-          if (i in t && !fun.call(thisp, t[i], i, t))
-            return false;
-        }
-
-        return true;
-    };
-}
+$(document).ready(function() {
+    function verticalCenter(el) {
+        var max = $(window).height();
+        if (el.height() > max) return;
+        $(document.body).css('padding', Math.floor((max - el.height()) / 2) + 'px 0');
+    }
+    verticalCenter($('.container:first'));
+});
 
 (function() {
-    var btn = document.getElementById('gen-btn'),
-        result = document.getElementById('result'),
+    var result = $('#result'),
         tmpl = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", "!@#$%^&*+-=_"],
         excludedChar = ['l', 'o', 'I', 'O', '0', '1'];
 
     var allChar = (function() {
         var s = tmpl.join('');
-        excludedChar.forEach(function(it) {
-            s = s.split(it).join('');
-        });
+        for(var i = excludedChar.length - 1; i >= 0; i--) {
+            s = s.split(excludedChar[i]).join('');
+        }
         return s;
     })();
 
+    function randomStr(str, maxLen) {
+        var arr = [], len = str.length;
+        while(arr.length < maxLen) {
+            arr.push(str.charAt(Math.floor(Math.random() * len)));
+        }
+        return arr.join('');
+    }
+
     function generate() {
         var pwd;
-        function _gen() {
-            var arr = [], len = allChar.length;
-            for(var i = 0; i < 8; i++) {
-                arr.push(allChar.charAt(Math.floor(Math.random() * len)));
-            }
-            return arr.join('');
-        }
-
         function contain(str) {
             return function (target) {
                 for (var i = target.length - 1; i>= 0; i--) {
@@ -156,17 +156,18 @@ if (!Array.prototype.every) {
             };
         }
 
-        while (!tmpl.every(contain(pwd = _gen()))) {};
+        while (!tmpl.every(contain(pwd = randomStr(allChar, 8)))) {};
         return pwd;
     }
 
-    btn.onclick = function() {
-        result.value = generate();
+    $('#gen-btn').click(function() {
+        result.val(generate());
         try {
             result.focus();
-            result.select();
+            result[0].select();
         } catch(e) {}
-    }
+    });
 })();
 </script>
+    </body>
 </html>
