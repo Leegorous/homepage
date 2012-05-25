@@ -44,6 +44,25 @@
 
             .desc code {
                 font-size: 18px;
+                cursor: pointer;
+            }
+
+            .desc .enabled:hover,
+            .desc .disabled {
+                text-decoration: none;
+            }
+
+            .desc .disabled {
+                color: #bbb;
+            }
+
+            .desc .disabled:hover,
+            .desc .enabled {
+                text-decoration: none;
+            }
+
+            .desc .enabled {
+                color: #D14;
             }
 
             .rule {
@@ -93,7 +112,7 @@
             </header>
             <section class="desc">
                 <p class="lead rule pwd-text">
-                    密码规则: 由 <code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code>!@#$%^&amp;*+-=_</code> 组成; 不包含 <code>o, O, 0, l, I, 1</code>; 随机
+                    密码规则: 由 <code class="include enabled" group="0">a-z</code>, <code class="include enabled" group="1">A-Z</code>, <code class="include enabled" group="2">0-9</code>, <code class="include enabled" group="3">!@#$%^&amp;*+-=_</code> 组成; 不包含 <code ex-group="0" class="exclude enabled">o, O, 0, l, I, 1</code>; 随机
                 </p>
                 <p>完全不涉及，不收集任何个人信息，运算过程由 JavaScript 在浏览器内完成，可安全离线使用</p>
             </section>
@@ -114,6 +133,7 @@
         <![endif]-->
         <script src="http://leegorous.net/js/ga-track.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="http://localhost/css/bootstrap/2.0.3/js/bootstrap-tooltip.js"></script>
 <script>
 $(document).ready(function() {
     function verticalCenter(el) {
@@ -124,15 +144,33 @@ $(document).ready(function() {
     verticalCenter($('.container:first'));
 
     var tmpl = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", "!@#$%^&*+-=_"],
-        excludedChar = ['l', 'o', 'I', 'O', '0', '1'];
+        excludedChar = ['l', 'o', 'I', 'O', '0', '1'], rules = tmpl, allChar;
 
-    var allChar = (function() {
-        var s = tmpl.join('');
-        for(var i = excludedChar.length - 1; i >= 0; i--) {
-            s = s.split(excludedChar[i]).join('');
+    function getRules() {
+        var arr = [];
+        $('.include').each(function(i, it) {
+            it = $(it), group = it.attr('group');
+            if (it.hasClass('enabled')) arr.push(tmpl[group]);
+        });
+        return arr;
+    }
+
+    function getExcludedRules() {
+        return $('.exclude.enabled').length === 1 ? excludedChar : [];
+    }
+
+    function getAllChar(rules) {
+        var s = rules.join(''), ex = getExcludedRules();
+        for(var i = ex.length - 1; i >= 0; i--) {
+            s = s.split(ex[i]).join('');
         }
         return s;
-    })();
+    }
+
+    function updateAllChar() {
+        rules = getRules();
+        allChar = getAllChar(rules);
+    }
 
     function randomStr(str, maxLen) {
         var arr = [], len = str.length;
@@ -153,7 +191,9 @@ $(document).ready(function() {
             };
         }
 
-        while (!tmpl.every(contain(pwd = randomStr(allChar, 8)))) {};
+        updateAllChar();
+
+        while (!rules.every(contain(pwd = randomStr(allChar, 8)))) {};
         return pwd;
     }
 
@@ -165,6 +205,38 @@ $(document).ready(function() {
             result[0].select();
         } catch(e) {}
     });
+
+    $('.include').click(function() {
+        var el = $(this);
+        if ($('.include.enabled').length === 1 && el.hasClass('enabled')) return;
+        if (el.hasClass('enabled')) {
+            el.attr('data-original-title', '点击 启用 规则');
+        } else {
+            el.attr('data-original-title', '点击 禁用 规则');
+        }
+        el.tooltip('show');
+        el.toggleClass('enabled');
+        el.toggleClass('disabled');
+
+        var enabledRules = $('.include.enabled');
+        if (enabledRules.length === 1) enabledRules.tooltip('disable');
+        else enabledRules.tooltip('enable');
+    });
+
+    $('.exclude').click(function() {
+        var el = $(this);
+        if (el.hasClass('enabled')) {
+            el.attr('data-original-title', '点击 启用 规则');
+        } else {
+            el.attr('data-original-title', '点击 禁用 规则');
+        }
+        el.tooltip('show');
+        el.toggleClass('enabled');
+        el.toggleClass('disabled');
+    });
+
+    $('.rule code').tooltip({'title': '点击 禁用 规则'});
+    $('.rule code:eq(1)').tooltip('show');
 });
 </script>
     </body>
