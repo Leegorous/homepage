@@ -71,6 +71,10 @@
                 font-size: 18px;
             }
 
+            .tooltip {
+                font-size: 12px;
+            }
+
             .form-generator {
                 text-align: center;
                 padding: 20px 0 25px 0;
@@ -163,7 +167,7 @@
 $(document).ready(function() {
     function verticalCenter(el) {
         var max = $(window).height();
-        if (el.height() > (max + 40)) return;
+        if (el.height() + 40 >= max) return;
         $(document.body).css('padding', Math.floor((max - el.height()) / 2) + 'px 0');
     }
     verticalCenter($('.container:first'));
