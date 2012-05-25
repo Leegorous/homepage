@@ -84,7 +84,7 @@
             }
 
             .input-huge {
-                width: 560px;
+                width: 570px;
                 font-size: 72px;
                 line-height: normal;
                 height: auto;
@@ -101,6 +101,20 @@
                 padding: 20px 0 30px 0;
                 border-top: 1px solid #E5E5E5;
             }
+
+            .len {
+                display: inline-block;
+                border-radius: 4px;
+                background: #ccc;
+                padding: 8px;
+                font-size: 24px;
+                color: #fff;
+                cursor: pointer;
+            }
+
+            .len-selected {
+                background: #999;
+            }
         </style>
     </head>
     
@@ -112,14 +126,23 @@
             </header>
             <section class="desc">
                 <p class="lead rule pwd-text">
-                    密码规则: 由 <code class="include enabled" group="0">a-z</code>, <code class="include enabled" group="1">A-Z</code>, <code class="include enabled" group="2">0-9</code>, <code class="include enabled" group="3">!@#$%^&amp;*+-=_</code> 组成; 不包含 <code ex-group="0" class="exclude enabled">o, O, 0, l, I, 1</code>; 随机
+                    密码规则: 由 <code class="include enabled" group="0">a-z</code>, <code class="include enabled" group="1">A-Z</code>, <code class="include enabled" group="2">0-9</code>, <code class="include enabled" group="3">!@#$%^&amp;*+-=_</code> 组成; 不包含 <code class="exclude enabled">o, O, 0, l, I, 1</code>; 随机
                 </p>
                 <p>完全不涉及，不收集任何个人信息，运算过程由 JavaScript 在浏览器内完成，可安全离线使用</p>
             </section>
             
             <div class="form-generator">
-                    <input class="btn btn-success btn-huge" id="gen-btn" type="button" value="产生新密码" /><br/>
-                    <input class="input-huge pwd-text" id="result" type="text"/>            
+                <input class="btn btn-success btn-huge" id="gen-btn" type="button" value="产生新密码" />
+                <div>
+                    <input class="input-huge pwd-text" id="result" type="text"/>
+                    <div class="lens">
+                        <span class="len">6位</span>
+                        <span class="len">7位</span>
+                        <span class="len len-selected">8位</span>
+                        <span class="len">10位</span>
+                        <span class="len">16位</span>
+                    </div>
+                </div>
             </div>
 
             <footer class="footer">
@@ -181,7 +204,7 @@ $(document).ready(function() {
     }
 
     function generate() {
-        var pwd;
+        var pwd, len = parseInt($('.len-selected').text()) || 8;
         function contain(str) {
             return function (target) {
                 for (var i = target.length - 1; i>= 0; i--) {
@@ -193,13 +216,14 @@ $(document).ready(function() {
 
         updateAllChar();
 
-        while (!rules.every(contain(pwd = randomStr(allChar, 8)))) {};
+        while (!rules.every(contain(pwd = randomStr(allChar, len)))) {};
         return pwd;
     }
 
     $('#gen-btn').click(function() {
-        var result = $('#result');
-        result.val(generate());
+        var result = $('#result'), pwd = generate();
+        result.val(pwd);
+        result.animate({'width': (pwd.length === 16 ? '770px' : '570px')}, 600);
         try {
             result.focus();
             result[0].select();
@@ -233,6 +257,12 @@ $(document).ready(function() {
         el.tooltip('show');
         el.toggleClass('enabled');
         el.toggleClass('disabled');
+    });
+
+    $('.lens').delegate('.len', 'click', function() {
+        $('.len').removeClass('len-selected');
+        $(this).addClass('len-selected');
+        $('#gen-btn').click();
     });
 
     $('.rule code').tooltip({'title': '点击 禁用 规则'});
