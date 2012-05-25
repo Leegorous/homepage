@@ -236,33 +236,31 @@ $(document).ready(function() {
         } catch(e) {}
     });
 
-    $('.include').click(function() {
-        var el = $(this);
-        if ($('.include.enabled').length === 1 && el.hasClass('enabled')) return;
+    function toggleRuleStatus(el) {
         if (el.hasClass('enabled')) {
-            el.attr('data-original-title', '点击 启用 规则');
+            el.attr('title', '点击 启用 规则');
         } else {
-            el.attr('data-original-title', '点击 禁用 规则');
+            el.attr('title', '点击 禁用 规则');
         }
         el.tooltip('show');
         el.toggleClass('enabled');
         el.toggleClass('disabled');
+    }
+
+    $('.include').click(function() {
+        var el = $(this);
+        if ($('.include.enabled').length === 1 && el.hasClass('enabled')) return;
+        toggleRuleStatus(el);
 
         var enabledRules = $('.include.enabled');
         if (enabledRules.length === 1) enabledRules.tooltip('disable');
         else enabledRules.tooltip('enable');
+        $('#gen-btn').click();
     });
 
     $('.exclude').click(function() {
-        var el = $(this);
-        if (el.hasClass('enabled')) {
-            el.attr('data-original-title', '点击 启用 规则');
-        } else {
-            el.attr('data-original-title', '点击 禁用 规则');
-        }
-        el.tooltip('show');
-        el.toggleClass('enabled');
-        el.toggleClass('disabled');
+        toggleRuleStatus($(this));
+        $('#gen-btn').click();
     });
 
     $('.lens').delegate('.len', 'click', function() {
