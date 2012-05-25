@@ -163,7 +163,7 @@
 $(document).ready(function() {
     function verticalCenter(el) {
         var max = $(window).height();
-        if (el.height() > max) return;
+        if (el.height() > (max + 40)) return;
         $(document.body).css('padding', Math.floor((max - el.height()) / 2) + 'px 0');
     }
     verticalCenter($('.container:first'));
