@@ -1,7 +1,15 @@
 /**
+ * Array.isArray comes from ES5.
+ * 
  * You can find all iteration methods of Array in 
  *   https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array
  */
+
+if (!Array.isArray) {
+  Array.isArray = function(vArg) {
+    return Object.prototype.toString.call(vArg) === '[object Array]'
+  }
+}
  
 if (!Array.prototype.filter)
 {
