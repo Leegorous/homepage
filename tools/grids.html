@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<!--
+The MIT License (MIT)
+Copyright (c) <2012> <leegorous>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Grid System Calculator - leegorous.net</title>
+    
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="http://leegorous.net/css/bootstrap/2.0.3/css/bootstrap.min.css" />
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+    body {
+      background: #f5f5f5;
+    }
+    .container {
+      background: #fff;
+    }
+    .header {
+      -webkit-border-bottom-right-radius: 10px;
+      -webkit-border-bottom-left-radius: 10px;
+      -moz-border-radius-bottomright: 10px;
+      -moz-border-radius-bottomleft: 10px;
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      margin-bottom: 6px;
+    }
+    h1 {
+      padding: 20px;
+      color: #bbb;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.45);
+    }
+    .settings {
+      -webkit-border-top-left-radius: 10px;
+      -webkit-border-top-right-radius: 10px;
+      -moz-border-radius-topleft: 10px;
+      -moz-border-radius-topright: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding-top: 10px;
+    }
+    .docs {
+      color: #999;
+      padding: 10px 0 0 20px;
+    }
+    .form {
+      margin: 10px 20px 0 0;
+    }
+    .page {
+      background: #ecf8fc;
+      padding-top: 10px 0;
+      margin-bottom: 10px;
+    }
+    .span {
+      background: #68cae3;
+      color: #fff;
+      float: left;
+      padding: 20px 0;
+      height: 200px;
+      text-align: center;
+    }
+    .output {
+      padding: 0 0 20px;
+    }
+    .grid {
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+    .grid p {
+      color: #bbb;
+    }
+    .footer {
+      border-top: 1px solid #e5e5e5;
+    }
+    .copyright {
+      padding: 20px 0;
+      text-align: center;
+    }
+    </style>
+  </head>
+    
+  <body>
+    <header class="container header">
+      <div class="row">
+        <div class="span12">
+          <h1>Grid System Calculator</h1>
+        </div>
+      </div>
+    </header>
+    
+    <section class="container settings">
+      <div class="row">
+
+        <div class="span4">
+          <div class="docs">
+            <p>This app helps you figure out all the possibilities of column and gutter width under the same <strong>page width</strong> and <strong>column amount</strong>.</p>
+            <p>Let the computer do the calculation.</p>
+            <p>All you need to do is select the nice one.</p>
+            <p>Enjoy!</p>
+          </div>
+        </div>
+
+        <div class="span8">
+          <div class="form form-vercital">
+            <div class="control-group">
+              <label for="page-width">Page width: </label>
+              <input id="page-width" name="page-width" value="940"/><span class="help-inline">px</span>
+            </div>
+            <div class="control-group">
+              <label for="columns">Columns: </label>
+              <input id="columns" name="columns" type="number" value="12" />
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" id="ok">See all possibilities</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="row">
+        <div class="span12">
+          <div class="output"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer container">
+      <div class="row">
+        <div class="span12">
+          <div class="copyright">
+            <p><a href="http://leegorous.net/tools/grids.html">Grid System Tool</a> designed &amp; coded by <a href="http://weibo.com/leegorous">@leegorous</a>, licensed under <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>.</p>
+            <p><a href="http://leegorous.net/"><i class="icon-home"></i> leegorous.net</a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script>
+    $(document.body).ready(function() {
+      function getColumnWidth(pageWidth, columns, gutterWidth) {
+        var columnWidth = (pageWidth + gutterWidth) / columns
+
+        if (columnWidth % 1 === 0) return columnWidth - gutterWidth
+      }
+
+      function camelCase2Words(str) {
+        return str.replace(/[A-Z]/g, function(str, offset, s) { return ' ' + str.toLowerCase() })
+      }
+
+      function unit(str) {
+        return /width$/i.test(str) ? 'px' : ''
+      }
+
+      function toPre(obj) {
+        var arr = []
+
+        arr.push('@gridColumns:             ' + obj.columns + ';')
+        arr.push('@gridColumnWidth:         ' + obj.columnWidth + 'px;')
+        arr.push('@gridGutterWidth:         ' + obj.gutterWidth + 'px;')
+        return arr.join('\n')
+      }
+
+      function toString(obj) {
+        var arr = []
+          , obj = obj || this
+
+        for(var i in obj) {
+          if ($.isFunction(obj[i])) continue
+          arr.push(camelCase2Words(i) + ': ' + obj[i] + unit(i))
+        }
+        return arr.join('<br/>')
+      }
+
+      function toColumn(i, columnWidth, gutterWidth) {
+        var style = [
+            'margin-left:' + gutterWidth + 'px'
+          , 'width:' + columnWidth + 'px'
+          ]
+        return '<div class="span" style="' + style.join('; ') + '">' + i + '</div>'
+      }
+
+      function toGrids(obj) {
+        var arr = []
+
+        arr.push('<div class="grid">')
+        
+        arr.push('<div class="page" style="width: ' + obj.pageWidth + 'px">')
+        arr.push('<div class="row" style="margin-left: -' + obj.gutterWidth + 'px">')
+        for (var i = 1; i <= obj.columns; i++) arr.push(toColumn(i, obj.columnWidth, obj.gutterWidth))
+        arr.push('</div>')
+        arr.push('</div>')
+
+        if (obj.gutterWidth > obj.columnWidth) {
+          arr.push('<div class="row"><div class="span10 offset1"><div class="alert"><span class="label label-warning">Oh,</span> It looks not good for webpage.</div></div></div>')
+        }
+
+        arr.push('<div class="row">')
+        arr.push('<div class="span5 offset1"><p>Variables for <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>.</p><pre>' + toPre(obj) + '</pre></div>')
+        arr.push('<div class="span5"><p>Or <a href="http://grids.heroku.com/grid.css?column_width=' + obj.columnWidth + '&column_amount=' + obj.columns + '&gutter_width=' + obj.gutterWidth + '" target="_blank">download the CSS</a> which base on <a href="http://960.gs/" target="_blank">960 Grid System</a></p></div>')
+        arr.push('</div>')
+
+        arr.push('</div>')
+
+        return arr.join('')
+      }
+
+      function calculate(pageWidth, columns) {
+        var arr = []
+          , max = pageWidth / columns
+
+        for(var gutterWidth = 0; gutterWidth < max; gutterWidth++) {
+          var columnWidth = getColumnWidth(pageWidth, columns, gutterWidth)
+
+          if (columnWidth) arr.push({
+            pageWidth: pageWidth
+          , columns: columns
+          , columnWidth: columnWidth
+          , gutterWidth: gutterWidth
+          })
+        }
+
+        return arr
+      }
+
+      function render(arr, fn) {
+        return _.map(arr, fn).join('')
+      }
+
+      $('#ok').click(function() {
+        var pageWidth = parseInt($('#page-width').val())
+          , columns = parseInt($('#columns').val())
+
+        $('.output').html(render(calculate(pageWidth, columns), toGrids))
+
+        return false
+      })
+
+      $('#ok').click()
+    })
+    </script>
+  </body>
+</html>
