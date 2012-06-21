@@ -116,6 +116,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             <p>Let the computer do the calculation.</p>
             <p>All you need to do is select the nice one.</p>
             <p>Enjoy!</p>
+            <p class="weibo"></p>
           </div>
         </div>
 
@@ -159,6 +160,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="/js/share2weibo.js"></script>
     <script>
     $(document.body).ready(function() {
       function getColumnWidth(pageWidth, columns, gutterWidth) {
@@ -261,6 +263,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
       $('#ok').click()
     })
+    </script>
+    <script>
+      share2weibo({container: $('.weibo')[0]})
     </script>
     <script src="http://leegorous.net/js/ga-track.min.js"></script>
   </body>
